@@ -13,9 +13,8 @@ public interface UserRepository extends JpaRepository<UserModel, UID> {
 
     /**
      * Find a user by email and password
-     * @param password
      * @param email
      * @return a user
      */
-    Optional<UserModel> findUserModelByPasswordAndEmail(@NotBlank String password, @NotBlank String email);
+    Optional<UserModel> findUserModelByEmail(@NotBlank String email);
 }

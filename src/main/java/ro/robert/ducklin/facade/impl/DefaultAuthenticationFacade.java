@@ -8,16 +8,15 @@ import ro.robert.ducklin.facade.UserFacade;
 import ro.robert.ducklin.model.UserModel;
 import ro.robert.ducklin.service.UserService;
 
-import javax.persistence.EntityNotFoundException;
 import java.util.UUID;
 
-public class DefaultUserFacade implements UserFacade {
+public class DefaultAuthenticationFacade implements UserFacade {
 
     private final UserConverter converter;
     private final UserService userService;
 
-    public DefaultUserFacade(UserService userService) {
-        converter = new UserConverter();
+    public DefaultAuthenticationFacade(UserService userService) {
+        this.converter = new UserConverter();
         this.userService = userService;
     }
 
