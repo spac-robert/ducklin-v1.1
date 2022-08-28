@@ -22,7 +22,7 @@ public class AppConfig {
     @Bean
     CommandLineRunner commandLineRunner(UserRepository repository) {
         return args -> {
-            UserModel userModel = new UserModel("4cafb0c1-1a55-46d4-baea-530ca06cda30", "admin", "admin@asd.com", "nimda", true);
+            UserModel userModel = new UserModel("4cafb0c1-1a55-46d4-baea-530ca06cda30", "admin", "admin@asd.com", passwordEncoder.encode("nimda"), true);
 
             repository.save(userModel);
         };
