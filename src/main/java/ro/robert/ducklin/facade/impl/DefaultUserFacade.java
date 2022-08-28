@@ -7,6 +7,7 @@ import ro.robert.ducklin.facade.UserFacade;
 import ro.robert.ducklin.model.UserModel;
 import ro.robert.ducklin.service.UserService;
 
+import javax.persistence.EntityNotFoundException;
 import java.util.UUID;
 
 public class DefaultUserFacade implements UserFacade {
@@ -19,12 +20,15 @@ public class DefaultUserFacade implements UserFacade {
         this.userService = userService;
     }
 
-    //TODO add custom exception
     @Override
     public UserData signIn(@NonNull UserData userData) {
         UserModel user = converter.to(userData);
         user.setUid(UUID.randomUUID().toString());
         user.setEnabled(false);
-        return converter.from(userService.sigIn(user));
+        try {
+            return converter.from(userService.sigIn(user));
+        } catch (EntityNotFoundException e) {
+            throw e;
+        }
     }
 }

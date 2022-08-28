@@ -10,6 +10,11 @@ import ro.robert.ducklin.model.UserModel;
  */
 public class UserConverter {
 
+    /**
+     * Convert {@link UserModel} to {@link UserData}
+     * @param source a user model
+     * @return converted user model to user data
+     */
     public UserData from(UserModel source) {
         UserData target = new UserData();
         target.setEmail(source.getEmail());
@@ -20,6 +25,11 @@ public class UserConverter {
         return target;
     }
 
+    /**
+     * Convert {@link UserData} to {@link UserModel}
+     * @param source a user data
+     * @return converted user data to user model
+     */
     public UserModel to(UserData source) {
         UserModel target = new UserModel();
         target.setEmail(source.getEmail());
