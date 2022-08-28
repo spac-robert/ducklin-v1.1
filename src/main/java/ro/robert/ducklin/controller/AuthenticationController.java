@@ -7,6 +7,8 @@ import org.springframework.web.bind.annotation.*;
 import ro.robert.ducklin.dto.UserData;
 import ro.robert.ducklin.facade.UserFacade;
 
+import javax.persistence.EntityNotFoundException;
+
 @RestController
 @RequestMapping("/auth/*")
 public class AuthenticationController {
@@ -18,18 +20,15 @@ public class AuthenticationController {
         this.userFacade = userFacade;
     }
 
-
-    @RequestMapping(name = "/sign_in", method = RequestMethod.GET)
-    public String index() {
-        return "Sugi pula";
-    }
-
     @RequestMapping(name = "/sign_in", method = RequestMethod.POST)
     public ResponseEntity<UserData> signIn(@RequestBody UserData userData) {
         ResponseEntity<UserData> response;
-        userData = userFacade.signIn(userData);
-        response = new ResponseEntity<>(userData, HttpStatus.OK);
-
+        try {
+            userData = userFacade.signIn(userData);
+            response = new ResponseEntity<>(userData, HttpStatus.OK);
+        } catch (EntityNotFoundException e) {
+            response = new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+        }
         return response;
     }
 }
