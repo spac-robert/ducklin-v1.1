@@ -12,13 +12,13 @@ import ro.robert.ducklin.service.UserService;
 import java.util.Optional;
 
 @Service
-public class DefaultUserService implements UserService {
+public class DefaultAuthenticationService implements UserService {
 
     @Autowired
     private final PasswordEncoder encoder;
     private final UserRepository userRepository;
 
-    public DefaultUserService(UserRepository userRepository, PasswordEncoder encoder) {
+    public DefaultAuthenticationService(UserRepository userRepository, PasswordEncoder encoder) {
         this.userRepository = userRepository;
         this.encoder = encoder;
     }

@@ -10,12 +10,12 @@ import ro.robert.ducklin.service.UserService;
 
 import java.util.UUID;
 
-public class DefaultUserFacade implements UserFacade {
+public class DefaultAuthenticationFacade implements UserFacade {
 
     private final UserConverter converter;
     private final UserService userService;
 
-    public DefaultUserFacade(UserService userService) {
+    public DefaultAuthenticationFacade(UserService userService) {
         this.converter = new UserConverter();
         this.userService = userService;
     }
