@@ -8,8 +8,7 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.Table;
-import java.rmi.server.UID;
-import java.time.Instant;
+import javax.validation.constraints.NotBlank;
 
 @Data
 @Table(name = "user")
@@ -19,15 +18,23 @@ import java.time.Instant;
 public class UserModel {
 
     @Id
-    private UID uid;
+    private String uid;
+
+    @NotBlank
     @Column(nullable = false)
     private String username;
+
     @Column(nullable = false)
+    @NotBlank
     private String email;
+
     @Column(nullable = false)
+    @NotBlank
     private String password;
-    @Column(nullable = false)
-    private Instant created;
+
+//    @Column(nullable = false)
+//    private Instant created;
+
     @Column(nullable = false)
     private Boolean enabled;
 
