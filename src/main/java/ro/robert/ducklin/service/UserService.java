@@ -16,4 +16,13 @@ public interface UserService {
      */
     @NonNull
     UserModel sigIn(@NonNull UserModel userModel);
+
+    /**
+     * Find User by email and password
+     *
+     * @param userModel the user to be found
+     * @return a UserModel
+     */
+    @NonNull
+    UserModel findUserByEmailAndPassword(@NonNull UserModel userModel);
 }

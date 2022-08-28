@@ -16,4 +16,11 @@ public interface UserFacade {
      * @return UserData
      */
     UserData signIn(@NonNull UserData userData);
+
+    /**
+     * Login
+     * @param userData the user to be logged in
+     * @return UserData
+     */
+    UserData login(UserData userData);
 }
