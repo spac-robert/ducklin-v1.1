@@ -3,6 +3,7 @@ package ro.robert.ducklin.facade.impl;
 import lombok.NonNull;
 import ro.robert.ducklin.converter.UserConverter;
 import ro.robert.ducklin.dto.UserData;
+import ro.robert.ducklin.exception.CustomException;
 import ro.robert.ducklin.facade.UserFacade;
 import ro.robert.ducklin.model.UserModel;
 import ro.robert.ducklin.service.UserService;
@@ -27,8 +28,20 @@ public class DefaultUserFacade implements UserFacade {
         user.setEnabled(false);
         try {
             return converter.from(userService.sigIn(user));
-        } catch (EntityNotFoundException e) {
+        } catch (CustomException e) {
             throw e;
         }
+    }
+
+    @Override
+    public UserData login(UserData userData) {
+        UserModel userModel = converter.to(userData);
+        UserModel foundUser;
+        try {
+            foundUser = userService.findUserByEmailAndPassword(userModel);
+        } catch (CustomException e) {
+            throw e;
+        }
+        return converter.from(foundUser);
     }
 }
