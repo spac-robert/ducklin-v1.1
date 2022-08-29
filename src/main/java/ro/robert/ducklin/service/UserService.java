@@ -15,7 +15,7 @@ public interface UserService {
      * @return boolean
      */
     @NonNull
-    UserModel sigIn(@NonNull UserModel userModel);
+    UserModel sigIn(@NonNull UserModel userModel) throws Exception;
 
     /**
      * Find User by email and password
@@ -25,4 +25,11 @@ public interface UserService {
      */
     @NonNull
     UserModel findUserByEmailAndPassword(@NonNull UserModel userModel);
+
+    /**
+     *
+     * Verification account
+     * @param token a token to verify account
+     */
+    void verifyAccount(@NonNull String token) throws Exception;
 }

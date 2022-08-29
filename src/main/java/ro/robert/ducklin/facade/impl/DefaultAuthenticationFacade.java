@@ -1,6 +1,8 @@
 package ro.robert.ducklin.facade.impl;
 
 import lombok.NonNull;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 import ro.robert.ducklin.converter.UserConverter;
 import ro.robert.ducklin.dto.UserData;
 import ro.robert.ducklin.exception.CustomException;
@@ -10,24 +12,22 @@ import ro.robert.ducklin.service.UserService;
 
 import java.util.UUID;
 
+@Component
 public class DefaultAuthenticationFacade implements UserFacade {
 
-    private final UserConverter converter;
-    private final UserService userService;
-
-    public DefaultAuthenticationFacade(UserService userService) {
-        this.converter = new UserConverter();
-        this.userService = userService;
-    }
+    @Autowired
+    private UserConverter converter;
+    @Autowired
+    private UserService userService;
 
     @Override
-    public UserData signIn(@NonNull UserData userData) {
+    public UserData signIn(@NonNull UserData userData) throws Exception {
         UserModel user = converter.to(userData);
         user.setUid(UUID.randomUUID().toString());
         user.setEnabled(false);
         try {
             return converter.from(userService.sigIn(user));
-        } catch (CustomException e) {
+        } catch (Exception e) {
             throw e;
         }
     }
@@ -42,5 +42,9 @@ public class DefaultAuthenticationFacade implements UserFacade {
             throw e;
         }
         return converter.from(foundUser);
+    }
+
+    public void verifyAccount(String token) throws Exception {
+        userService.verifyAccount(token);
     }
 }

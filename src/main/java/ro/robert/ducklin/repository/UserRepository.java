@@ -8,6 +8,9 @@ import javax.validation.constraints.NotBlank;
 import java.rmi.server.UID;
 import java.util.Optional;
 
+/**
+ * Repository for user
+ */
 @Repository
 public interface UserRepository extends JpaRepository<UserModel, UID> {
 

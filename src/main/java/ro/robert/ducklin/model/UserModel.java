@@ -8,7 +8,9 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.Table;
+import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotEmpty;
 
 @Data
 @Table(name = "user")
@@ -24,12 +26,13 @@ public class UserModel {
     @Column(nullable = false)
     private String username;
 
+    @Email
     @Column(nullable = false)
-    @NotBlank
+    @NotEmpty(message = "Email is required")
     private String email;
 
-    @Column(nullable = false)
     @NotBlank
+    @Column(nullable = false)
     private String password;
 
 //    @Column(nullable = false)

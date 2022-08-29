@@ -15,7 +15,7 @@ public interface UserFacade {
      * @param userData the user to be added
      * @return UserData
      */
-    UserData signIn(@NonNull UserData userData);
+    UserData signIn(@NonNull UserData userData) throws Exception;
 
     /**
      * Login
@@ -23,4 +23,10 @@ public interface UserFacade {
      * @return UserData
      */
     UserData login(UserData userData);
+
+    /**
+     * Verification account
+     * @param token
+     */
+    void verifyAccount(String token) throws Exception;
 }
