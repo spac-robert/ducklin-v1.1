@@ -9,4 +9,5 @@ public class UserData {
     private String username;
     private String email;
     private String password;
+    private Boolean enable;
 }

@@ -18,4 +18,10 @@ public interface VerificationTokenRepository extends JpaRepository<VerificationT
      * @return an Optional of VerificationTokenModel if found; empty instead
      */
     Optional<VerificationTokenModel> findByToken(String token);
+
+    /**
+     * Delete Token
+     * @param token to be deleted
+     */
+    void deleteVerificationTokenModelByToken(String token);
 }

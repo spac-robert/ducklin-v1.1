@@ -2,7 +2,6 @@ package ro.robert.ducklin.controller;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -22,7 +21,7 @@ public class AuthenticationController {
     public AuthenticationController(UserFacade userFacade) {
         this.userFacade = userFacade;
     }
-
+//TODO dupa ce expira token-ul nu pot sa fac signin, cred ca trebuie dupa expirare sa se stearga token-ul
     @RequestMapping(value = "/login", method = RequestMethod.POST)
     public ResponseEntity<UserData> login(@RequestBody UserData userData) {
         ResponseEntity<UserData> response;
@@ -53,12 +52,13 @@ public class AuthenticationController {
         return response;
     }
 
-    @RequestMapping(value = "/account-verification/{token}")
+    @RequestMapping(value = "/account-verification/{token}", method = {RequestMethod.GET, RequestMethod.POST})
     public ResponseEntity<UserData> verifyAccount(@PathVariable String token) {
         ResponseEntity<UserData> response;
         try {
             userFacade.verifyAccount(token);
             response = new ResponseEntity<>(HttpStatus.OK);
+            userFacade.deleteToken(token);
         } catch (Exception e) {
             LOGGER.error(e.getMessage(), e);
             MultiValueMap<String, String> map = new HttpHeaders();
@@ -67,4 +67,20 @@ public class AuthenticationController {
         }
         return response;
     }
+//TODO future reset password
+
+//    @RequestMapping(value = "/reset-password/{token}", method = RequestMethod.GET)
+//    public ResponseEntity<UserData> resetPassword(@PathVariable String token) {
+//        ResponseEntity<UserData> response;
+//        try {
+//            //userFacade.verifyTokenResetPassword(token);
+//            response = new ResponseEntity<>(HttpStatus.OK);
+//        } catch (Exception e) {
+//            LOGGER.error(e.getMessage(), e);
+//            MultiValueMap<String, String> map = new HttpHeaders();
+//            map.add("error", e.getMessage());
+//            response = new ResponseEntity<>(map, HttpStatus.BAD_REQUEST);
+//        }
+//        return response;
+//    }
 }

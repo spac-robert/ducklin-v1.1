@@ -29,4 +29,6 @@ public interface UserFacade {
      * @param token
      */
     void verifyAccount(String token) throws Exception;
+
+    void deleteToken(String token);
 }

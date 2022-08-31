@@ -27,6 +27,7 @@ public class UserConverter {
         target.setPassword(source.getPassword());
         target.setUsername(source.getUsername());
         target.setUid(source.getUid());
+        target.setEnable(source.getEnabled());
 
         return target;
     }
@@ -43,6 +44,7 @@ public class UserConverter {
         target.setPassword(source.getPassword());
         target.setUsername(source.getUsername());
         target.setUid(source.getUid());
+        target.setEnabled(source.getEnable());
 
         return target;
     }

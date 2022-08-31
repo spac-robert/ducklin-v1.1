@@ -14,6 +14,8 @@ import ro.robert.ducklin.service.MailService;
 import ro.robert.ducklin.service.UserService;
 
 import javax.transaction.Transactional;
+import java.time.Instant;
+import java.time.temporal.ChronoUnit;
 import java.util.Optional;
 import java.util.UUID;
 
@@ -57,10 +59,11 @@ public class DefaultAuthenticationService implements UserService {
     @NonNull
     public UserModel findUserByEmailAndPassword(@NonNull UserModel userModel) {
         Optional<UserModel> foundUser = userRepository.findUserModelByEmail(userModel.getEmail());
-
         if (foundUser.isPresent()) {
-            if (encoder.matches(userModel.getPassword(), foundUser.get().getPassword())) {
-                return foundUser.get();
+            if (foundUser.get().getEnabled()) {
+                if (encoder.matches(userModel.getPassword(), foundUser.get().getPassword())) {
+                    return foundUser.get();
+                }
             }
         }
         throw new CustomException("Email or password are incorrect");
@@ -70,7 +73,15 @@ public class DefaultAuthenticationService implements UserService {
     public void verifyAccount(@NonNull String token) throws Exception {
         Optional<VerificationTokenModel> foundToken = tokenRepository.findByToken(token);
         foundToken.orElseThrow(() -> new Exception("Invalid Token"));
+        if (foundToken.get().getExpiryDate().isBefore(Instant.now())) {
+            throw new Exception("Expired Token");
+        }
         fetchUserAndEnable(foundToken.get());
+    }
+
+    @Override
+    public void deleteToken(String token) {
+        tokenRepository.deleteVerificationTokenModelByToken(token);
     }
 
     @Transactional
@@ -84,9 +95,11 @@ public class DefaultAuthenticationService implements UserService {
     private String generateVerificationToken(UserModel user) {
         String token = UUID.randomUUID().toString();
         VerificationTokenModel verificationToken = new VerificationTokenModel();
+        Instant timeNow = Instant.now();
 
         verificationToken.setToken(token);
         verificationToken.setUser(user);
+        verificationToken.setExpiryDate(timeNow.plus(1, ChronoUnit.MINUTES));
         tokenRepository.save(verificationToken);
 
         return token;

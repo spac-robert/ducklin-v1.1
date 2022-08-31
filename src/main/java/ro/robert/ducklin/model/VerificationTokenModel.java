@@ -21,7 +21,7 @@ public class VerificationTokenModel {
     @GeneratedValue(strategy = IDENTITY)
     private Long id;
     private String token;
-    @OneToOne(fetch = LAZY,cascade = CascadeType.ALL)
+    @OneToOne(fetch = LAZY, cascade = CascadeType.PERSIST)
     private UserModel user;
     private Instant expiryDate;
 }

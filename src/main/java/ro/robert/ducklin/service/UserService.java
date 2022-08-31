@@ -32,4 +32,6 @@ public interface UserService {
      * @param token a token to verify account
      */
     void verifyAccount(@NonNull String token) throws Exception;
+
+    void deleteToken(String token);
 }

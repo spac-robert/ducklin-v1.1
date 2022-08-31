@@ -47,4 +47,9 @@ public class DefaultAuthenticationFacade implements UserFacade {
     public void verifyAccount(String token) throws Exception {
         userService.verifyAccount(token);
     }
+
+    @Override
+    public void deleteToken(String token) {
+        userService.deleteToken(token);
+    }
 }
