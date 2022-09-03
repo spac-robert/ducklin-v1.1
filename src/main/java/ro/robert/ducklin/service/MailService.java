@@ -16,13 +16,17 @@ import ro.robert.ducklin.dto.EmailNotification;
 import javax.annotation.Resource;
 
 @Service
-@AllArgsConstructor
 public class MailService {
 
-    @Resource(name = "initMailSender")
     public JavaMailSender mailSender;
-    @Autowired
     public MailContentBuilder mailContentBuilder;
+
+    @Autowired
+    public MailService(JavaMailSender mailSender, MailContentBuilder mailContentBuilder) {
+        this.mailSender = mailSender;
+        this.mailContentBuilder = mailContentBuilder;
+    }
+
     public static final Logger LOGGER = LoggerFactory.getLogger(MailService.class);
 
     @Async

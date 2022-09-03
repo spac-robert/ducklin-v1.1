@@ -23,15 +23,12 @@ import java.util.UUID;
 @Transactional
 public class DefaultAuthenticationService implements UserService {
 
-    @Autowired
-    private PasswordEncoder encoder;
-    @Autowired
-    private UserRepository userRepository;
-    @Autowired
-    private VerificationTokenRepository tokenRepository;
-    @Autowired
-    private MailService mailService;
+    private final PasswordEncoder encoder;
+    private final UserRepository userRepository;
+    private final VerificationTokenRepository tokenRepository;
+    private final MailService mailService;
 
+    @Autowired
     public DefaultAuthenticationService(PasswordEncoder encoder, UserRepository userRepository, VerificationTokenRepository tokenRepository, MailService mailService) {
         this.encoder = encoder;
         this.userRepository = userRepository;

@@ -1,8 +1,5 @@
 package ro.robert.ducklin.converter;
 
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.annotation.Configuration;
-import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Component;
 import ro.robert.ducklin.dto.UserData;
 import ro.robert.ducklin.model.UserModel;

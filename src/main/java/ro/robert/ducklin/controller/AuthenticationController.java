@@ -12,7 +12,7 @@ import ro.robert.ducklin.exception.CustomException;
 import ro.robert.ducklin.facade.UserFacade;
 
 @RestController
-@RequestMapping("/auth/*")
+@RequestMapping("/auth")
 public class AuthenticationController {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(AuthenticationController.class);
@@ -21,7 +21,8 @@ public class AuthenticationController {
     public AuthenticationController(UserFacade userFacade) {
         this.userFacade = userFacade;
     }
-//TODO dupa ce expira token-ul nu pot sa fac signin, cred ca trebuie dupa expirare sa se stearga token-ul
+
+    //TODO dupa ce expira token-ul nu pot sa fac signin, cred ca trebuie dupa expirare sa se stearga token-ul
     @RequestMapping(value = "/login", method = RequestMethod.POST)
     public ResponseEntity<UserData> login(@RequestBody UserData userData) {
         ResponseEntity<UserData> response;
@@ -42,7 +43,7 @@ public class AuthenticationController {
         ResponseEntity<UserData> response;
         try {
             userData = userFacade.signIn(userData);
-            response = new ResponseEntity<>(userData, HttpStatus.OK);
+            response = new ResponseEntity<>(userData, HttpStatus.CREATED);
         } catch (Exception e) {
             LOGGER.error(e.getMessage(), e);
             MultiValueMap<String, String> map = new HttpHeaders();
@@ -57,7 +58,7 @@ public class AuthenticationController {
         ResponseEntity<UserData> response;
         try {
             userFacade.verifyAccount(token);
-            response = new ResponseEntity<>(HttpStatus.OK);
+            response = new ResponseEntity<>(HttpStatus.ACCEPTED);
             userFacade.deleteToken(token);
         } catch (Exception e) {
             LOGGER.error(e.getMessage(), e);

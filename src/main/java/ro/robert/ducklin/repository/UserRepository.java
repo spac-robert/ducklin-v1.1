@@ -5,14 +5,13 @@ import org.springframework.stereotype.Repository;
 import ro.robert.ducklin.model.UserModel;
 
 import javax.validation.constraints.NotBlank;
-import java.rmi.server.UID;
 import java.util.Optional;
 
 /**
  * Repository for user
  */
 @Repository
-public interface UserRepository extends JpaRepository<UserModel, UID> {
+public interface UserRepository extends JpaRepository<UserModel, Long> {
 
     /**
      * Find a user by email and password

@@ -15,10 +15,14 @@ import java.util.UUID;
 @Component
 public class DefaultAuthenticationFacade implements UserFacade {
 
+    private final UserConverter converter;
+    private final UserService userService;
+
     @Autowired
-    private UserConverter converter;
-    @Autowired
-    private UserService userService;
+    public DefaultAuthenticationFacade(UserConverter converter, UserService userService) {
+        this.converter = converter;
+        this.userService = userService;
+    }
 
     @Override
     public UserData signIn(@NonNull UserData userData) throws Exception {

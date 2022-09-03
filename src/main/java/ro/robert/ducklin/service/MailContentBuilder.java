@@ -8,8 +8,12 @@ import org.thymeleaf.context.Context;
 @Service
 public class MailContentBuilder {
 
-    @Autowired
     private TemplateEngine templateEngine;
+
+    @Autowired
+    public MailContentBuilder(TemplateEngine templateEngine) {
+        this.templateEngine = templateEngine;
+    }
 
     public String build(String message) {
         Context context = new Context();
