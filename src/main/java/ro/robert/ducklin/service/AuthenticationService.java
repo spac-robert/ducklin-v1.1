@@ -6,7 +6,7 @@ import ro.robert.ducklin.model.UserModel;
 /**
  * Contains business logic related to users
  */
-public interface UserService {
+public interface AuthenticationService {
 
     /**
      * Create a new account

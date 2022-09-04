@@ -1,7 +1,6 @@
 package ro.robert.ducklin.service;
 
 import lombok.NonNull;
-import ro.robert.ducklin.dto.SubDucklingData;
 import ro.robert.ducklin.model.SubDucklingModel;
 
 import java.util.List;

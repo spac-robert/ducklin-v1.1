@@ -1,4 +1,4 @@
-package ro.robert.ducklin.facade;
+package ro.robert.ducklin.facade.impl;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;

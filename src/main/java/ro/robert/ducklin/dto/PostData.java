@@ -3,17 +3,16 @@ package ro.robert.ducklin.dto;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-
-import java.time.Instant;
+import ro.robert.ducklin.model.UserModel;
 
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class SubDucklingData {
+public class PostData {
 
     private Long id;
-    private String name;
+    private String postName;
+    private String url;
     private String description;
-    private Long numberOfPosts;
-    private Instant createdDate;
+    private Integer voteCount;
 }

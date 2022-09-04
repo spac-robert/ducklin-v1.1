@@ -11,7 +11,7 @@ import ro.robert.ducklin.model.VerificationTokenModel;
 import ro.robert.ducklin.repository.UserRepository;
 import ro.robert.ducklin.repository.VerificationTokenRepository;
 import ro.robert.ducklin.service.MailService;
-import ro.robert.ducklin.service.UserService;
+import ro.robert.ducklin.service.AuthenticationService;
 
 import javax.transaction.Transactional;
 import java.time.Instant;
@@ -21,7 +21,7 @@ import java.util.UUID;
 
 @Service
 @Transactional
-public class DefaultAuthenticationService implements UserService {
+public class DefaultAuthenticationService implements AuthenticationService {
 
     private final PasswordEncoder encoder;
     private final UserRepository userRepository;

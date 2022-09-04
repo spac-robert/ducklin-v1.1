@@ -8,7 +8,7 @@ import ro.robert.ducklin.dto.UserData;
 import ro.robert.ducklin.exception.CustomException;
 import ro.robert.ducklin.facade.UserFacade;
 import ro.robert.ducklin.model.UserModel;
-import ro.robert.ducklin.service.UserService;
+import ro.robert.ducklin.service.AuthenticationService;
 
 import java.util.UUID;
 
@@ -16,10 +16,10 @@ import java.util.UUID;
 public class DefaultAuthenticationFacade implements UserFacade {
 
     private final UserConverter converter;
-    private final UserService userService;
+    private final AuthenticationService userService;
 
     @Autowired
-    public DefaultAuthenticationFacade(UserConverter converter, UserService userService) {
+    public DefaultAuthenticationFacade(UserConverter converter, AuthenticationService userService) {
         this.converter = converter;
         this.userService = userService;
     }

@@ -22,7 +22,7 @@ public class PostModel {
     private Long postId;
 
     @Column(name = "name")
-    @NotBlank(message = "Post Name cannot be empty or Null")
+    @NotBlank(message = "Post name cannot be empty or Null")
     private String postName;
 
     @Column(name = "url")

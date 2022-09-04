@@ -8,7 +8,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.util.MultiValueMap;
 import org.springframework.web.bind.annotation.*;
 import ro.robert.ducklin.dto.SubDucklingData;
-import ro.robert.ducklin.facade.SubDucklingFacade;
+import ro.robert.ducklin.facade.impl.SubDucklingFacade;
 
 import java.util.List;
 
