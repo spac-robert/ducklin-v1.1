@@ -11,7 +11,6 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import ro.robert.ducklin.dto.PostData;
-import ro.robert.ducklin.dto.SubDucklingData;
 import ro.robert.ducklin.facade.impl.PostFacade;
 
 @RestController

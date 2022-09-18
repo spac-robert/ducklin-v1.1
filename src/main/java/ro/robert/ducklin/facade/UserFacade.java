@@ -1,6 +1,7 @@
 package ro.robert.ducklin.facade;
 
 import lombok.NonNull;
+import ro.robert.ducklin.dto.AuthenticationResponse;
 import ro.robert.ducklin.dto.UserData;
 import ro.robert.ducklin.model.UserModel;
 
@@ -19,10 +20,11 @@ public interface UserFacade {
 
     /**
      * Login
+     *
      * @param userData the user to be logged in
      * @return UserData
      */
-    UserData login(UserData userData);
+    AuthenticationResponse login(UserData userData) throws Exception;
 
     /**
      * Verification account

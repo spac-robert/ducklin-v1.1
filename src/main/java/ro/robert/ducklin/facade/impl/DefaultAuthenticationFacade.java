@@ -1,15 +1,26 @@
 package ro.robert.ducklin.facade.impl;
 
+import io.jsonwebtoken.Jwts;
+import io.jsonwebtoken.SignatureAlgorithm;
+import io.jsonwebtoken.impl.TextCodec;
 import lombok.NonNull;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.authentication.AuthenticationManager;
+import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Component;
 import ro.robert.ducklin.converter.UserConverter;
+import ro.robert.ducklin.dto.AuthenticationResponse;
 import ro.robert.ducklin.dto.UserData;
-import ro.robert.ducklin.exception.CustomException;
 import ro.robert.ducklin.facade.UserFacade;
 import ro.robert.ducklin.model.UserModel;
+import ro.robert.ducklin.security.JwtProvider;
 import ro.robert.ducklin.service.AuthenticationService;
 
+import java.util.Collection;
+import java.util.Date;
 import java.util.UUID;
 
 @Component
@@ -17,11 +28,13 @@ public class DefaultAuthenticationFacade implements UserFacade {
 
     private final UserConverter converter;
     private final AuthenticationService userService;
+    private final AuthenticationManager authManager;
 
     @Autowired
-    public DefaultAuthenticationFacade(UserConverter converter, AuthenticationService userService) {
+    public DefaultAuthenticationFacade(UserConverter converter, AuthenticationService userService, AuthenticationManager authManager) {
         this.converter = converter;
         this.userService = userService;
+        this.authManager = authManager;
     }
 
     @Override
@@ -37,15 +50,15 @@ public class DefaultAuthenticationFacade implements UserFacade {
     }
 
     @Override
-    public UserData login(UserData userData) {
+    public AuthenticationResponse login(UserData userData) throws Exception {
         UserModel userModel = converter.to(userData);
-        UserModel foundUser;
+        AuthenticationResponse response;
         try {
-            foundUser = userService.findUserByEmailAndPassword(userModel);
-        } catch (CustomException e) {
+            response = userService.login(userModel,authManager);
+        } catch (Exception e) {
             throw e;
         }
-        return converter.from(foundUser);
+        return response;
     }
 
     public void verifyAccount(String token) throws Exception {

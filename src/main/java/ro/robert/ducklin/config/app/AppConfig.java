@@ -8,6 +8,7 @@ import org.springframework.mail.javamail.JavaMailSenderImpl;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.thymeleaf.TemplateEngine;
 import ro.robert.ducklin.model.UserModel;
+import ro.robert.ducklin.model.role.Role;
 import ro.robert.ducklin.repository.UserRepository;
 
 @Configuration
@@ -21,7 +22,7 @@ public class AppConfig {
     @Bean
     CommandLineRunner commandLineRunner(UserRepository repository) {
         return args -> {
-            UserModel userModel = new UserModel(null,"4cafb0c1-1a55-46d4-baea-530ca06cda30", "admin", "admin@asd.com", passwordEncoder.encode("nimda"), true);
+            UserModel userModel = new UserModel(null, "4cafb0c1-1a55-46d4-baea-530ca06cda30", "admin", "admin@asd.com", passwordEncoder.encode("nimda"), true, Role.ADMIN);
 
             repository.save(userModel);
         };

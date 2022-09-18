@@ -1,8 +1,10 @@
 package ro.robert.ducklin.model;
 
 import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import ro.robert.ducklin.model.role.Role;
 
 import javax.persistence.*;
 import javax.validation.constraints.Email;
@@ -42,5 +44,8 @@ public class UserModel {
 
     @Column(nullable = false)
     private Boolean enabled;
+
+    @Enumerated(EnumType.STRING)
+    private Role role;
 
 }

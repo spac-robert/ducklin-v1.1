@@ -7,8 +7,8 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.util.MultiValueMap;
 import org.springframework.web.bind.annotation.*;
+import ro.robert.ducklin.dto.AuthenticationResponse;
 import ro.robert.ducklin.dto.UserData;
-import ro.robert.ducklin.exception.CustomException;
 import ro.robert.ducklin.facade.UserFacade;
 
 @RestController
@@ -24,12 +24,13 @@ public class AuthenticationController {
 
     //TODO dupa ce expira token-ul nu pot sa fac signin, cred ca trebuie dupa expirare sa se stearga token-ul
     @RequestMapping(value = "/login", method = RequestMethod.POST)
-    public ResponseEntity<UserData> login(@RequestBody UserData userData) {
-        ResponseEntity<UserData> response;
+    public ResponseEntity<AuthenticationResponse> login(@RequestBody UserData userData) {
+        ResponseEntity<AuthenticationResponse> response;
+        AuthenticationResponse authenticationResponse;
         try {
-            userData = userFacade.login(userData);
-            response = new ResponseEntity<>(userData, HttpStatus.OK);
-        } catch (CustomException e) {
+            authenticationResponse = userFacade.login(userData);
+            response = new ResponseEntity<>(authenticationResponse, HttpStatus.OK);
+        } catch (Exception e) {
             LOGGER.error(e.getMessage(), e);
             MultiValueMap<String, String> map = new HttpHeaders();
             map.add("error", e.getMessage());

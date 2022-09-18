@@ -1,6 +1,8 @@
 package ro.robert.ducklin.service;
 
 import lombok.NonNull;
+import org.springframework.security.authentication.AuthenticationManager;
+import ro.robert.ducklin.dto.AuthenticationResponse;
 import ro.robert.ducklin.model.UserModel;
 
 /**
@@ -34,4 +36,6 @@ public interface AuthenticationService {
     void verifyAccount(@NonNull String token) throws Exception;
 
     void deleteToken(String token);
+
+    AuthenticationResponse login(UserModel userModel, AuthenticationManager authManager);
 }
